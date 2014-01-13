@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 
+from Entity import Entity
 
-class Transaction:
+
+class Transaction(Entity):
     id = None
     user_id = None
     amount = None
