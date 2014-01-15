@@ -3,6 +3,7 @@
 import requests
 from .Repository import Repository
 from wsc.model import LoadingCreditCard, Printing, HelpDesk
+from wsc.exc import TransactionNotFound
 
 
 class TransactionRepository(Repository):
@@ -11,6 +12,8 @@ class TransactionRepository(Repository):
     def get(self, id):
         url = self.config.invoicing_endpoint + '/v1/transactions/{}'.format(id)
         resp = requests.get(url)
+        self.handle_generic_errors(resp, TransactionNotFound, True)
+
         data = resp.json()
 
         # Instantiate the appropriate subclass of Transaction based on the 'transaction_type' field
