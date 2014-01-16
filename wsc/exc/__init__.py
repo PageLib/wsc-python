@@ -4,6 +4,6 @@ from InternalServerError import *
 
 __all__ = [
     'NotFound', 'TransactionNotFound', 'EntityNotFound', 'UserNotFound',
-    'Unauthorized', 'AccessDenied', 'InvalidSession',
+    'Unauthorized', 'AccessDenied', 'InvalidSession', 'InvalidCredentials'
     'InternalServerError'
 ]
