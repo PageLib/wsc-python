@@ -11,12 +11,12 @@ class ApiError(Exception):
         self.status_code = status_code
         self.data = data
 
-    @staticmethod
-    def from_response(resp):
-        """Build an ApiError from a (supposedly failed) Requests response."""
+    @classmethod
+    def from_response(cls, resp):
+        """Build an instance from a (supposedly failed) Requests response."""
         try:
             data = resp.json()
         except ValueError:
             data = None
 
-        return ApiError(resp.status_code, data)
+        return cls(resp.status_code, data)
