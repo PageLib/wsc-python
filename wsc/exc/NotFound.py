@@ -18,3 +18,19 @@ class EntityNotFound(NotFound):
 
 class UserNotFound(NotFound):
     pass
+
+
+class AclResourceNotFound(NotFound):
+    """Raised by IAM when checking a permission for a non-existing resource (not declared in
+        iam/roles.py)."""
+
+    resource_name = None
+
+    def __init__(self, resource_name):
+        self.resource_name = resource_name
+
+    def __str__(self):
+        return self.resource_name
+
+    def __unicode__(self):
+        return unicode(__str__(self))
