@@ -2,5 +2,6 @@
 
 from .Repository import Repository
 from .TransactionRepository import TransactionRepository
+from UserRepository import UserRepository
 
-__all__ = ['Repository', 'TransactionRepository']
+__all__ = ['Repository', 'TransactionRepository', 'UserRepository']
