@@ -7,7 +7,7 @@ class ApiError(Exception):
     status_code = None
     data = None
 
-    def __init__(self, status_code, data):
+    def __init__(self, status_code=None, data=None):
         self.status_code = status_code
         self.data = data
 

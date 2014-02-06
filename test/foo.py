@@ -1,10 +1,14 @@
+import random
+import string
 from wsc.Configuration import Configuration
 from wsc.iam import *
 from hashlib import sha1
 from wsc.model import Printing, User
 from wsc.repo import TransactionRepository, UserRepository
 import hashlib
+import datetime
 
+start = datetime.datetime.now()
 
 config = Configuration()
 config.iam_endpoint = 'http://localhost:5001'
@@ -37,7 +41,7 @@ repo_users = UserRepository(config, session)
 u = User()
 u.first_name = 'Lucky'
 u.last_name = 'Luke'
-u.login = 'lucky_ohkgfol'
+u.login = 'lucky_'.join(random.choice(string.ascii_uppercase + string.digits) for x in range(3))
 u.role = 'admin'
 u.entity_id = '1ca5e4506c5d41ac89b7adf6ec291bbf'
 u.password_hash = hashlib.sha1('qwerty').hexdigest()
@@ -49,3 +53,5 @@ u2 = repo_users.get(u.id)
 print 'Login IAM : ' +u2.login
 
 r = iam.logout(session)
+
+print 'Duration : ' + str(datetime.datetime.now() - start)

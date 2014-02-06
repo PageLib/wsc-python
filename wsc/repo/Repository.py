@@ -24,6 +24,7 @@ class Repository:
         if resp.status_code == 500:
             raise InternalServerError()
 
+        # Use it, if this is the last handling for errors.
         if final:
             self.ensure_success(resp)
 

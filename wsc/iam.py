@@ -4,7 +4,7 @@
 
 import requests
 import json
-from exc import NotFound, InternalServerError, InvalidCredentials, AccessDenied, AclResourceNotFound
+from exc import NotFound, InternalServerError, InvalidCredentials, AccessDenied, InvalidSession, AclResourceNotFound,Unauthorized
 
 
 class Session:
@@ -35,7 +35,6 @@ class IAM:
             raise NotFound.from_response(resp)
         if resp.status_code == 412:
             raise InvalidCredentials.from_response(resp)
-
         if resp.status_code != 200:
             raise InternalServerError.from_response(resp)
 
@@ -60,7 +59,14 @@ class IAM:
         resp = requests.get(url)
 
         if resp.status_code == 404:
-            raise AclResourceNotFound(resource)
+            error_code = resp.json()['error']
+            if error_code == 'invalid_session':
+                raise InvalidSession()
+            if error_code == 'invalid_resource':
+                raise AclResourceNotFound()
+            if error_code == 'session_expired':
+                raise AccessDenied(action, resource)
+
         if resp.status_code != 200:
             raise InternalServerError.from_response(resp)
 
