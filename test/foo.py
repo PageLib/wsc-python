@@ -50,7 +50,7 @@ u.password_hash = hashlib.sha1('qwerty').hexdigest()
 u = repo_users.create(u)
 u2 = repo_users.get(u.id)
 
-print 'Login IAM : ' +u2.login
+print 'Login IAM : ' + u2.login
 
 r = iam.logout(session)
 
