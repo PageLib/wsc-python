@@ -33,6 +33,10 @@ class Repository:
         if resp.status_code not in (200, 201):
             raise ApiError.from_response(resp)
 
+    def auth_get(self, url):
+        """Authenticated GET request."""
+        return requests.get(url, auth=(self.session.user_id, self.session.session_id))
+
     def post_json(self, url, data, **kwargs):
         """POST request with a JSON body."""
 
