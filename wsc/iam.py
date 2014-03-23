@@ -76,3 +76,9 @@ class IAM:
         """Ensures a user is allowed to perform an action over a resource."""
         if not self.is_allowed(session, action, resource):
             raise AccessDenied(action, resource)
+
+    def is_session_active(self, session):
+        """Return True if `session` is active, False otherwise."""
+        url = self.config.iam_endpoint + '/v1/sessions/{}/{}'.format(session.user_id, session.session_id)
+        resp = requests.get(url)
+        return resp.status_code == 200
